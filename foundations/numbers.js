@@ -174,10 +174,40 @@ const textBox = document.getElementById("myText")
 textBox.addEventListener("keydown", logKey)
 
 function logKey(event) {
-    console.log(`You pressed "${event}".`)
+    console.log(`You pressed "${event.key}".`)
 }
 //Anonymous function
 const textBox2 = document.getElementById("myText2")
-textBox2.addEventListener("keydown", (event) => {
-    console.log(`You pressed ${event.key}`)
+textBox2.addEventListener("keydown", function (event) {
+    console.log(`You pressed "${event.key}"`)
 })
+//arrow function
+const textBox3 = document.getElementById("myText3")
+textBox3.addEventListener("keydown", (event) => {
+    console.log(`You pressed "${event.key}`)
+})
+//In this case we will see how the arrow function follows the this of the code
+//around it in creation time which is in this case the global scope so it wont
+//know what is this.name
+const obj1 = {
+    name: "obj1",
+    sayHi: function () {
+        console.log("Hi " + this.name)
+    }
+}
+const obj2 = {
+    name: "obj2",
+    sayHi: () => {
+        console.log("Hi " + this.name)
+    }
+}
+obj1.sayHi()//Hi obj1
+obj2.sayHi()//Hi 
+//other usecases
+const originals = [1, 2, 3]
+const copy = originals.map((item, index, array) => {//Callback func callback(item,index,array)
+    return (item + " " + index + " " + array)
+})
+copy.forEach((item) => {
+    console.log(item)
+});
