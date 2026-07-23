@@ -208,6 +208,74 @@ const originals = [1, 2, 3]
 const copy = originals.map((item, index, array) => {//Callback func callback(item,index,array)
     return (item + " " + index + " " + array)
 })
+console.log(copy)
 copy.forEach((item) => {
     console.log(item)
 });
+//a function is a value and can be delt with like one
+function sayHi() {
+    console.log("sayHi: Hello")
+}
+console.log(sayHi)//it will print the source code of the function as string
+let code = sayHi.toString()
+code = code.replace("function sayHi", "function funcCopy")
+code = code.replace("sayHi", "funcCopy")
+eval(code)
+sayHi()
+funcCopy()
+//More function playing
+function ask(question, yes, No) {
+    if (confirm(question)) yes()
+    else No()
+}
+function showOk() {
+    alert("That's GOOOOD")
+}
+function showCancel() {
+    alert("You nasty boy/girl.")
+}
+//ask("Did you wash your ass today?", showOk, showCancel)
+//shorter version
+ask(
+    "Did you wash your ass today?",
+    function () { alert("Thats GOOOOD.") },
+    function () { alert("You nasty boy/girl.")}
+)
+//function declaration
+console.log(sum(1, 1))
+function sum(a, b) {
+    return a + b
+}
+//function expression
+//It wont work cause function expressions are not included in the initialization state
+//console.log(sum2(1, 1))//Uncaught ReferenceError: Cannot access 'sum2' before initialization
+let sum2 = function(a, b) {
+    return a + b
+}
+const canFetch = typeof globalThis.fetch === "function"
+console.log(canFetch)
+//JS is single-threded means it can only do one thing at a time
+//This is called a blocking function
+// function task(message) {
+//     let n = 10000000000
+//     while (n > 0) n--
+//     console.log(message)
+// }
+// console.log("Start script...")
+// task("Downloafing files...")
+// console.log("Done!")
+function fizzBuzz(num) {
+    for (let i = 1; i <= num; i++) {
+        (i%3==0 && i%5==0) ? console.log("FizzBuzz") : 
+        (i%5==0) ? console.log("Buzz") :
+        (i%3==0) ? console.log("Fizz") :
+        console.log(i)
+    }
+}
+//Web workers
+const worker = new Worker("worker.js")
+worker.postMessage("Hello worker.")
+
+worker.onmessage = function (event) {
+    console.log("worker: " + event.data)
+}
